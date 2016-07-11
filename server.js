@@ -10,25 +10,29 @@ const server = http.createServer((req, res) =>  {
   if (req.url === '/') {
     req.url = '/index.html'; // slash b4 index?
   }
- if(req.method === 'GET'){
-   getFunction(req, res);
- } else if(req.method === 'POST'){
-   postFunction(req, res);
- }
+  if(req.method === 'GET'){
+    getFunction(req, res);
+  } else if(req.method === 'POST'){
+    postFunction(req, res);
+  } else if (req.method === 'DELETE') {
+    deletePost(req, res);
+  } else if (req.method === 'PUT') {
+    postFunction(req, res);
+  }
 });
 
 server.listen('8080');
 
 const getFunction = (req, res) => {
- fs.readFile('./public' + req.url, (err, data) => {
-   if(err !== null){
-     res.write(fs.readFileSync('public/404.html'));
-     res.end();
-   } else {
-     res.write(fs.readFileSync('public' + req.url));
-     res.end();
-   }
- });
+  fs.readFile('./public' + req.url, (err, data) => {
+    if(err !== null){
+      res.write(fs.readFileSync('public/404.html'));
+      res.end();
+    } else {
+      res.write(fs.readFileSync('public' + req.url));
+      res.end();
+    }
+  });
 };
 const postFunction = (req, res) => {
   req.on('data', (data) => {
@@ -44,15 +48,26 @@ const postFunction = (req, res) => {
 function addNewElem(req, reqBody) {
   fs.readFile('./public' + req.url, (err, data) => {
     if(err !== null) {
+      console.log('writing started');
       var x = fs.readFileSync('public/index.html').toString();
       var y = x.slice(0, x.search('</ol>') - 3);
       var z = x.slice(x.search('</ol>') - 3, x.length);
       x = y + `\r\n    <li>\r\n      <a href="${req.url}">${reqBody.elementName}</a>\r\n    </li>` + z;
       fs.writeFileSync('public/index.html', x);
-      y = x.slice(0, x.search('<h3>'));
-      Objects.keys(reqBody).replace(/'These are ' + elemCount/gi, 'These are ' + (elemCount + 1));
+      // find the 2 and replace it... google how to do this
+      x.charAt(x.search(' ' + elemCount) + 1) = elemCount + 1;
+      elemCount++;
     }
   });
+}
+function deletePost(req, res) {
+  var x = fs.readFileSync('public/index.html').toString();
+  var z = x.slice(x.search('<a href=\"' + req.url) + req.url.length + 15 + (req.url.length + 6), x.length);
+  var y = x.slice(0, x.search('<a href=\"' + req.url) - 12);
+  x = y + z;
+  fs.writeFileSync('public/index.html', x);
+  fs.unlinkSync('./public' + req.url);
+  res.end();
 }
 
 const htmlTemplate = (reqBody) => (
