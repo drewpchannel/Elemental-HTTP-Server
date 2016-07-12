@@ -1,4 +1,4 @@
-var indexTemplate = function () {
+function temPlate () {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@ var indexTemplate = function () {
 <body>
   <h1>The Elements</h1>
   <h2>These are all the known elements.</h2>
-<h3>There are {{$numOfElements}}</h3>
+<h3>There are zzzzzzz</h3>
   <ol>
     <li>
       <a href="/hydrogen.html">Hydrogen</a>
@@ -17,9 +17,9 @@ var indexTemplate = function () {
     <li>
       <a href="/helium.html">Helium</a>
     </li>
-    {{$newLine}}
+    <!-- qqqqqq -->
   </ol>
 </body>
 </html>`;
-};
-module.exports = 'indexTemplate';
+}
+module.exports = temPlate;
