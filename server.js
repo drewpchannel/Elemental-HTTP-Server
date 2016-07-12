@@ -5,10 +5,6 @@ const querystring = require('querystring');
 var temPlate = require('./temPlate');
 var numOfElements = 2;
 
-var template = "Hi zzzzzzz";
-var rendered = template.replace(/zzzzzzz/g, 'Agent 47');
-console.log(rendered);
-
 const server = http.createServer((req, res) =>  {
   if (req.url === '/') {
     req.url = '/index.html';
@@ -23,9 +19,7 @@ const server = http.createServer((req, res) =>  {
     postFunction(req, res);
   }
 });
-
 server.listen('8080');
-
 const getFunction = (req, res) => {
   fs.readFile('./public' + req.url, (err, data) => {
     if(err !== null){
@@ -97,25 +91,3 @@ const htmlTemplate = (reqBody) => (
 </body>
 </html>`
 );
-
-/*const indexTemplate = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>The Elements</title>
-  <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-  <h1>The Elements</h1>
-  <h2>These are all the known elements.</h2>
-<h3>There are zzzzzzz</h3>
-  <ol>
-    <li>
-      <a href="/hydrogen.html">Hydrogen</a>
-    </li>
-    <li>
-      <a href="/helium.html">Helium</a>
-    </li>
-  </ol>
-</body>
-</html>`;*/
