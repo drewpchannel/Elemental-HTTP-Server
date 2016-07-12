@@ -9,13 +9,17 @@ function temPlate () {
 <body>
   <h1>The Elements</h1>
   <h2>These are all the known elements.</h2>
-<h3>There are zzzzzzz</h3>
+<h3>There are <!-- zzzzzzz --></h3>
   <ol>
     <li>
       <a href="/hydrogen.html">Hydrogen</a>
     </li>
     <li>
       <a href="/helium.html">Helium</a>
+    </li>
+    
+    <li>
+      <a href="/oxygen.html">Oxygen</a>
     </li>
     <!-- qqqqqq -->
   </ol>

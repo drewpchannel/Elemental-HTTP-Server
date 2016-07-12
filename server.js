@@ -49,13 +49,13 @@ function addNewElem(req, reqBody) {
   fs.readFile('./public' + req.url, (err, data) => {
     if(err !== null) {
       numOfElements++;
-      var q = temPlate();
-      q = q.replace (/zzzzzzz/g, numOfElements);
-      q = q.replace (/<!-- qqqqqq -->/g, `\r\n    <li>\r\n      <a href="${req.url}">${reqBody.elementName}</a>\r\n    </li>\r\n    <!-- qqqqqq -->`);
-      fs.writeFileSync('public/index.html', q);
-      q = fs.readFileSync('./temPlate');
-      q = q.replace (/<!-- qqqqqq -->/g, `\r\n    <li>\r\n      <a href="${req.url}">${reqBody.elementName}</a>\r\n    </li>\r\n    <!-- qqqqqq -->`);
-      fs.writeFileSync('./template', q);
+      var tempIndex = temPlate();
+      tempIndex = tempIndex.replace (/<!-- zzzzzzz -->/g, numOfElements);
+      tempIndex = tempIndex.replace (/<!-- qqqqqq -->/g, `\r\n    <li>\r\n      <a href="${req.url}">${reqBody.elementName}</a>\r\n    </li>\r\n    <!-- qqqqqq -->`);
+      fs.writeFileSync('public/index.html', tempIndex);
+      var tempTemplate = fs.readFileSync('./temPlate.js');
+      tempTemplate = tempTemplate.toString().replace (/<!-- qqqqqq -->/g, `\r\n    <li>\r\n      <a href="${req.url}">${reqBody.elementName}</a>\r\n    </li>\r\n    <!-- qqqqqq -->`);
+      fs.writeFileSync('./temPlate.js', tempTemplate);
     }
   });
 }
