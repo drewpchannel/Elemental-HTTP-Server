@@ -53,7 +53,9 @@ function addNewElem(req, reqBody) {
       q = q.replace (/zzzzzzz/g, numOfElements);
       q = q.replace (/<!-- qqqqqq -->/g, `\r\n    <li>\r\n      <a href="${req.url}">${reqBody.elementName}</a>\r\n    </li>\r\n    <!-- qqqqqq -->`);
       fs.writeFileSync('public/index.html', q);
-      fs.writeFileSync('./temPlate', q);
+      q = fs.readFileSync('./temPlate');
+      q = q.replace (/<!-- qqqqqq -->/g, `\r\n    <li>\r\n      <a href="${req.url}">${reqBody.elementName}</a>\r\n    </li>\r\n    <!-- qqqqqq -->`);
+      fs.writeFileSync('./template', q);
     }
   });
 }
