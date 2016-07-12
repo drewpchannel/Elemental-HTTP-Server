@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+var indexTemplate = function () {
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,7 +9,7 @@
 <body>
   <h1>The Elements</h1>
   <h2>These are all the known elements.</h2>
-<h3>There are 2</h3>
+<h3>There are {{$numOfElements}}</h3>
   <ol>
     <li>
       <a href="/hydrogen.html">Hydrogen</a>
@@ -16,6 +17,9 @@
     <li>
       <a href="/helium.html">Helium</a>
     </li>
+    {{$newLine}}
   </ol>
 </body>
-</html>
+</html>`;
+};
+module.exports = 'indexTemplate';
